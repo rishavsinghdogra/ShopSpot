@@ -2,22 +2,18 @@
 import { getDatabase, ref, set } from "firebase/database";
 import { app } from "./firebase";
 import { Route, Routes, useLocation } from "react-router-dom";
-import HomePage from "./pages/HomePage";
+import HomePage from "./pages/Homepage/HomePage";
 import LoginPage from "./pages/LoginPage";
 import SignUP from "./pages/SignUp";
 import ProtectedRoutes from "./routes/ProtectedRoutes";
-import { AnimatePresence } from 'framer-motion';
-
-
-
+import { AnimatePresence } from "framer-motion";
+import Dashboard from "./pages/Dashboard";
 
 // const auth = getAuth(app)
 
 // const signUpUser = () => {
 //   createUserWithEmailAndPassword(auth,"rishavsd2000"
 // }
-
-
 
 // const db = getDatabase(app);
 
@@ -30,21 +26,19 @@ import { AnimatePresence } from 'framer-motion';
 //   });
 // };
 
-
-
 function App() {
   const location = useLocation();
   return (
     <>
-  
-  <AnimatePresence mode = "wait">
-      <Routes location={location} key={location.pathname}>
-        <Route element={<ProtectedRoutes />}>
+      <AnimatePresence mode="wait">
+        <Routes location={location} key={location.pathname}>
+          <Route element={<ProtectedRoutes />}>
+            <Route path="/dashboard" element={<Dashboard />} />
+          </Route>
           <Route path="/" element={<HomePage />} />
-        </Route>
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/sign-up" element={<SignUP />} />
-      </Routes>
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/sign-up" element={<SignUP />} />
+        </Routes>
       </AnimatePresence>
     </>
   );
