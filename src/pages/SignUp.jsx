@@ -8,7 +8,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import * as React from "react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { toast } from "react-toastify";
@@ -27,10 +26,12 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import chandigarhSectors from "@/configs/ChandigarhSectors";
+import { collection, addDoc } from "firebase/firestore";
+import { firebaseDb } from "../firebase";
 
-function SelectLocation() {
+function SelectLocation({ selectedLocation, onSelect }) {
   return (
-    <Select>
+    <Select value={selectedLocation} onValueChange={onSelect}>
       <SelectTrigger className="w-[180px]">
         <SelectValue placeholder="Select a sector" />
       </SelectTrigger>
@@ -53,18 +54,43 @@ const auth = getAuth(app);
 const SignUP = () => {
   const navigate = useNavigate();
   const [isSeller, setIsSeller] = useState(false);
-  console.log(isSeller);
+  const [selectedLocation, setSelectedLocation] = useState("");
+  const [loading, setLoading] = useState(false); // State for loading
 
-  const signUpUser = (email, password) => {
+  const signUpUser = (
+    email,
+    password,
+    firstName,
+    selectedLocation,
+    storeName
+  ) => {
+    setLoading(true); // Set loading to true when the request starts
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         console.log(userCredential);
+
+        if (isSeller) {
+          addDoc(collection(firebaseDb, "seller"), {
+            storeName: storeName,
+            location: selectedLocation,
+            email: email,
+          });
+        } else {
+          addDoc(collection(firebaseDb, "buyer"), {
+            Name: firstName,
+            email: email,
+          });
+        }
+
         toast.success("Account created successfully");
         navigate("/login");
       })
       .catch((error) => {
         console.error("Error signing up:", error);
         toast.error(error.message);
+      })
+      .finally(() => {
+        setLoading(false); // Set loading to false when the request finishes
       });
   };
 
@@ -112,9 +138,18 @@ const SignUP = () => {
             <form
               onSubmit={(e) => {
                 e.preventDefault();
-                const email = e.target.email.value;
-                const password = e.target.password.value;
-                signUpUser(email, password);
+
+                const formData = new FormData(e.target);
+                const formValues = Object.fromEntries(formData.entries());
+                formValues.location = selectedLocation; // Add the selected location to the form values
+
+                const email = formValues.email;
+                const password = formValues.password;
+                const firstName = formValues["first-name"];
+                const location = selectedLocation;
+                const storeName = formValues["store-name"];
+
+                signUpUser(email, password, firstName, location, storeName);
               }}
             >
               <div className="grid gap-4">
@@ -130,8 +165,11 @@ const SignUP = () => {
                       />
                     </div>
                     <div>
-                    <Label htmlFor="location">Location</Label>
-                    <SelectLocation />
+                      <Label htmlFor="location">Location</Label>
+                      <SelectLocation
+                        selectedLocation={selectedLocation}
+                        onSelect={setSelectedLocation}
+                      />
                     </div>
                   </div>
                 ) : (
@@ -175,8 +213,8 @@ const SignUP = () => {
                     required
                   />
                 </div>
-                <Button type="submit" className="w-full">
-                  Create an account
+                <Button type="submit" className="w-full" disabled={loading}>
+                  {loading ? "Creating account..." : "Create an account"}
                 </Button>
                 <Button variant="outline" className="w-full">
                   Sign up with GitHub

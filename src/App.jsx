@@ -7,7 +7,7 @@ import LoginPage from "./pages/LoginPage";
 import SignUP from "./pages/SignUp";
 import ProtectedRoutes from "./routes/ProtectedRoutes";
 import { AnimatePresence } from "framer-motion";
-import Dashboard from "./pages/seller/Dashboard";
+import SellerDashboard from "./pages/seller/Dashboard";
 
 // const auth = getAuth(app)
 
@@ -33,7 +33,7 @@ function App() {
       <AnimatePresence mode="wait">
         <Routes location={location} key={location.pathname}>
           <Route element={<ProtectedRoutes />}>
-            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/dashboard" element={<SellerDashboard />} />
           </Route>
           <Route path="/" element={<HomePage />} />
           <Route path="/login" element={<LoginPage />} />
