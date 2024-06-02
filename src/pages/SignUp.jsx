@@ -25,6 +25,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { Tooltip } from "@nextui-org/react";
 import chandigarhSectors from "@/configs/ChandigarhSectors";
 import { collection, addDoc } from "firebase/firestore";
 import { firebaseDb } from "../firebase";
@@ -122,6 +123,7 @@ const SignUP = () => {
           <CardHeader>
             <div className="flex justify-between">
               <CardTitle className="text-xl">Sign Up</CardTitle>
+              <Tooltip content="Toggle to register as seller" className="relative bottom-3 p-2 rounded-lg bg-slate-300/70 backdrop-blur-sm">
               <Switch
                 isSelected={isSeller}
                 onValueChange={setIsSeller}
@@ -130,6 +132,7 @@ const SignUP = () => {
                 startContent={<Store color="#FFFFFF" />}
                 endContent={<UserRound color="#FFFFFF" />}
               ></Switch>
+              </Tooltip>
             </div>
 
             <CardDescription>
