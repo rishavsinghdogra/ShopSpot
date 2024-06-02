@@ -9,6 +9,7 @@ import ProtectedRoutes from "./routes/ProtectedRoutes";
 import { AnimatePresence } from "framer-motion";
 import SellerDashboard from "./pages/seller/Dashboard";
 
+
 // const auth = getAuth(app)
 
 // const signUpUser = () => {

@@ -1,13 +1,14 @@
 import { app } from "../firebase";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { toast } from "react-toastify";
-
+// import { useContext } from "react";
+import { UserDataContext } from "@/contexts/UserDataContext";
 const auth = getAuth(app);
 
 const LogIn = () => {
@@ -15,6 +16,7 @@ const LogIn = () => {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false); // New state variable for loading
   const navigate = useNavigate();
+  const {setUserIsAuthenticated} = useContext(UserDataContext)
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -25,10 +27,14 @@ const LogIn = () => {
   const signInUser = (email, password) => {
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
-        console.log(userCredential);
-
+        console.log(userCredential)
+        localStorage.setItem(
+          "expirationTime",
+          userCredential.user.stsTokenManager.expirationTime.toString()
+        );
         setLoading(false); // Set loading to false when login is successful
         toast.success("Logged in successfully!");
+        setUserIsAuthenticated(true)
         navigate("/dashboard"); // Navigate to home page or desired page on successful login
       })
       .catch((error) => {
