@@ -32,7 +32,7 @@ import { firebaseDb } from "../firebase";
 function SelectLocation({ selectedLocation, onSelect }) {
   return (
     <Select value={selectedLocation} onValueChange={onSelect}>
-      <SelectTrigger className="w-[180px]">
+      <SelectTrigger>
         <SelectValue placeholder="Select a sector" />
       </SelectTrigger>
       <SelectContent>
@@ -74,11 +74,13 @@ const SignUP = () => {
             storeName: storeName,
             location: selectedLocation,
             email: email,
+            type : "seller"
           });
         } else {
           addDoc(collection(firebaseDb, "buyer"), {
             Name: firstName,
             email: email,
+            type: "buyer"
           });
         }
 
