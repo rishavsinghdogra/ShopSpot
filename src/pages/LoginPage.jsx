@@ -7,7 +7,6 @@ import { Label } from "@/components/ui/label";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { toast } from "react-toastify";
-// import { useContext } from "react";
 import { UserDataContext } from "@/contexts/UserDataContext";
 const auth = getAuth(app);
 
@@ -47,7 +46,7 @@ const LogIn = () => {
 
   return (
     <motion.div
-      className="min-h-screen flex items-center justify-center bg-gradient-to-r from-[#7882f3] to-[#5555ee]"
+      className="min-h-lvh flex items-center justify-center bg-gradient-to-r from-[#7882f3] to-[#5555ee]"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
@@ -60,7 +59,7 @@ const LogIn = () => {
         transition={{ duration: 0.5 }}
       >
         {/* <Card className=""> */}
-        <div className="w-full lg:grid lg:min-h-[600px] lg:grid-cols-2 xl:min-h-[800px] ">
+        <div className="w-full min-h-screen flex items-center justify-center">
           <div className="flex items-center justify-center">
             <div className="mx-auto grid w-[350px] gap-6">
               <div className="grid gap-2 text-center">
@@ -120,13 +119,13 @@ const LogIn = () => {
               </div>
             </div>
           </div>
-          <div className="hidden bg-muted lg:block">
+          <div className=" relative">
             <motion.img
               src="/images/bigLogo.png"
               alt="Image"
               width="120"
               height="680"
-              className="h-[70%] mt-24 w-full object-contain dark:brightness-[0.2] dark:grayscale"
+              className="h-[70%]  w-[90%] object-contain dark:brightness-[0.2] dark:grayscale"
               initial={{ x: 0, opacity: 0 }}
               animate={{ x: 100, opacity: 1 }}
               exit={{ x: -100, opacity: 0 }}
