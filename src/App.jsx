@@ -2,12 +2,12 @@
 import { getDatabase, ref, set } from "firebase/database";
 import { app } from "./firebase";
 import { Route, Routes, useLocation } from "react-router-dom";
-import HomePage from "./pages/Homepage/HomePage";
+import HomePage from "./pages/home/HomePage";
 import LoginPage from "./pages/LoginPage";
 import SignUP from "./pages/SignUp";
 import ProtectedRoutes from "./routes/ProtectedRoutes";
 import { AnimatePresence } from "framer-motion";
-import Dashboard from "./pages/Dashboard";
+import Dashboard from "./pages/seller/Dashboard";
 
 // const auth = getAuth(app)
 
