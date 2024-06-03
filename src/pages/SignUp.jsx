@@ -27,7 +27,7 @@ import {
 } from "@/components/ui/select";
 import { Tooltip } from "@nextui-org/react";
 import chandigarhSectors from "@/configs/ChandigarhSectors";
-import { collection, addDoc } from "firebase/firestore";
+import { collection, addDoc, updateDoc, doc } from "firebase/firestore";
 import { firebaseDb } from "../firebase";
 
 function SelectLocation({ selectedLocation, onSelect }) {
@@ -72,16 +72,30 @@ const SignUP = () => {
 
         if (isSeller) {
           addDoc(collection(firebaseDb, "seller"), {
+            //New seller is added to collection
             storeName: storeName,
             location: selectedLocation,
             email: email,
-            type : "seller"
+            type: "seller",
+          }).then((data) => {
+            // seller data is updated with its access key
+            const documentKey = data["_key"].path.segments[1];
+            const docRef = doc(firebaseDb, "seller", documentKey);
+            updateDoc(docRef, {
+              accessKey: documentKey,
+            });
           });
         } else {
           addDoc(collection(firebaseDb, "buyer"), {
             Name: firstName,
             email: email,
-            type: "buyer"
+            type: "buyer",
+          }).then((data) => {
+            const documentKey = data["_key"].path.segments[1];
+            const docRef = doc(firebaseDb, "buyer", documentKey);
+            updateDoc(docRef, {
+              accessKey: documentKey,
+            });
           });
         }
 
@@ -123,15 +137,18 @@ const SignUP = () => {
           <CardHeader>
             <div className="flex justify-between">
               <CardTitle className="text-xl">Sign Up</CardTitle>
-              <Tooltip content="Toggle to register as seller" className="relative bottom-3 p-2 rounded-lg bg-slate-300/70 backdrop-blur-sm">
-              <Switch
-                isSelected={isSeller}
-                onValueChange={setIsSeller}
-                size="lg"
-                className=" bg-green-400 rounded-full"
-                startContent={<Store color="#FFFFFF" />}
-                endContent={<UserRound color="#FFFFFF" />}
-              ></Switch>
+              <Tooltip
+                content="Toggle to register as seller"
+                className="relative bottom-3 p-2 rounded-lg bg-slate-300/70 backdrop-blur-sm"
+              >
+                <Switch
+                  isSelected={isSeller}
+                  onValueChange={setIsSeller}
+                  size="lg"
+                  className=" bg-green-400 rounded-full"
+                  startContent={<Store color="#FFFFFF" />}
+                  endContent={<UserRound color="#FFFFFF" />}
+                ></Switch>
               </Tooltip>
             </div>
 
