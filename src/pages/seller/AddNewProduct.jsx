@@ -31,11 +31,14 @@ function SelectProduct({ selectedProduct, onSelect }) {
       placeholder="select product"
       className="w-full bg-white rounded-lg"
       scrollShadowProps={{
-        isEnabled: false
+        isEnabled: false,
       }}
     >
       {rashanList.map((product) => (
-        <SelectItem key={product} className="bg-white  border border-slate-700 rounded-lg">
+        <SelectItem
+          key={product}
+          className="bg-white  border border-slate-700 rounded-lg"
+        >
           {product}
         </SelectItem>
       ))}
@@ -45,26 +48,35 @@ function SelectProduct({ selectedProduct, onSelect }) {
 
 const AddNewProduct = ({ className }) => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
-  console.log(isOpen);
   const [productImage, setProductImage] = useState("");
   const [price, setPrice] = useState("");
   const [productDescription, setProductDescription] = useState("");
   const [selectedProduct, setSelectedProduct] = useState(new Set([]));
 
   const handleAddProduct = () => {
-    // Validation and submission logic here
     if (!productImage || !price || !productDescription) {
       alert("All fields are required!");
       return;
     }
-    // Add product logic here
     console.log({
       selectedProduct,
       productImage,
       price,
       productDescription,
     });
-    // Close the modal after submission
+    onOpenChange(false);
+    setProductImage("");
+    setPrice("");
+    setProductDescription("");
+    setSelectedProduct(new Set([]));
+  };
+
+  const handleClose = () => {
+    setProductImage("");
+    setPrice("");
+    setProductDescription("");
+    setSelectedProduct(new Set([]));
+
     onOpenChange(false);
   };
 
@@ -96,7 +108,6 @@ const AddNewProduct = ({ className }) => {
       >
         <ModalContent>
           {(onClose) => {
-            // console.log(onclose);
             return (
               <>
                 <ModalHeader className="flex flex-col gap-1 border-b border-gray-200 pb-4">
@@ -143,7 +154,7 @@ const AddNewProduct = ({ className }) => {
                     color="danger"
                     variant="flat"
                     onPress={() => {
-                      console.log("Close button pressed");
+                      handleClose();
                       onClose();
                     }}
                     className="mr-3 bg-red-500 rounded-lg text-white hover:bg-red-600"
