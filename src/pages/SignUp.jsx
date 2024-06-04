@@ -75,7 +75,7 @@ const SignUP = () => {
             //New seller is added to collection
             storeName: storeName,
             location: selectedLocation,
-            email: email,
+            email: email.toLowerCase(),
             type: "seller",
           }).then((data) => {
             // seller data is updated with its access key

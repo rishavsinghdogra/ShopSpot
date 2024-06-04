@@ -1,22 +1,19 @@
 import { createContext, useState } from "react";
-import { firebaseDb } from "@/firebase";
-import { query, collection, where, getDocs } from "firebase/firestore";
 
 // Creating the context object
 export const UserDataContext = createContext();
 
 const UserDataProvider = (props) => {
   const expirationTime = parseInt(localStorage.getItem("expirationTime"));
-
-  const getUserData = async() => {
-    const collectionRef = collection(firebaseDb,"seller")
-    const q = query(collectionRef, where("email", "==", "payalStores@gmail.com"))
-    const result = await getDocs(q)
-    console.log("result", result)
-  }
-
-  console.log("functi", getUserData())
-
+  const [accessKey, setAccessKey] = useState(null);
+  const [userType, setUserType] = useState(null);
+  const [storeEmail, setStoreEmailInContext] = useState("");
+  const [email, setUserEmailInContext] = useState("");
+  const [name, setName] = useState("");
+  const [userAccessKey, setUserAccessKey] = useState("");
+  const [location, setLocation] = useState("");
+  const [storeName, setStoreName] = useState("");
+  const [type, setType] = useState("");
   const [userIsAuthenticated, setUserIsAuthenticated] = useState(
     isNaN(expirationTime)
       ? false
@@ -25,7 +22,28 @@ const UserDataProvider = (props) => {
       : true
   );
 
-  const contextValue = { userIsAuthenticated, setUserIsAuthenticated};
+  const contextValue = {
+    userIsAuthenticated,
+    setUserIsAuthenticated,
+    accessKey,
+    setAccessKey,
+    userType,
+    setUserType,
+    email,
+    setUserEmailInContext,
+    name,
+    setName,
+    userAccessKey,
+    setUserAccessKey,
+    storeEmail,
+    setStoreEmailInContext,
+    location,
+    setLocation,
+    storeName,
+    setStoreName,
+    type,
+    setType,
+  };
   return (
     <UserDataContext.Provider value={contextValue}>
       {props.children}

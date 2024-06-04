@@ -8,6 +8,9 @@ import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { toast } from "react-toastify";
 import { UserDataContext } from "@/contexts/UserDataContext";
+import { query, collection, where, getDocs } from "firebase/firestore";
+import { firebaseDb } from "../firebase";
+
 const auth = getAuth(app);
 
 const LogIn = () => {
@@ -15,7 +18,75 @@ const LogIn = () => {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false); // New state variable for loading
   const navigate = useNavigate();
-  const {setUserIsAuthenticated} = useContext(UserDataContext)
+  const {
+    setUserIsAuthenticated,
+    setStoreEmailInContext,
+    setLocation,
+    setStoreName,
+    setType,
+    setUserAccessKey,
+    setName,
+    setUserEmailInContext,
+  } = useContext(UserDataContext);
+
+  function filterSellerData(data, collectionName) {
+    return data?.map((seller) => {
+      if (collectionName === "seller") {
+        const { email, location, storeName, type } =
+          seller.doc.data.value.mapValue.fields;
+        const accessKey = seller.doc.key.path.segments[6]; // accessKey is always at index 6
+        return {
+          email: email.stringValue,
+          location: location.stringValue,
+          storeName: storeName.stringValue,
+          type: type.stringValue,
+          accessKey: accessKey ? accessKey : "",
+        };
+      } else {
+        const { email, Name, type } = seller.doc.data.value.mapValue.fields;
+        const accessKey = seller.doc.key.path.segments[6];
+        return {
+          email: email.stringValue,
+          Name: Name.stringValue,
+          type: type.stringValue,
+          accessKey: accessKey ? accessKey : "",
+        };
+      }
+    });
+  }
+
+  const getUserDataFromCollection = async (collectionName, userEmail) => {
+    const collectionRef = collection(firebaseDb, collectionName);
+    const q = query(collectionRef, where("email", "==", userEmail));
+
+    const result = await getDocs(q);
+    return filterSellerData(
+      result?.["_snapshot"]?.docChanges,
+      collectionName
+    )[0]; //Zero index because result will be one in case of login
+  };
+
+  const fetchUserData = async (email) => {
+    try {
+      const sellerData = await getUserDataFromCollection("seller", email);
+      console.log(sellerData);
+      if (sellerData) {
+        setLocation(sellerData?.location);
+        setStoreName(sellerData?.storeName);
+        setType(sellerData?.type);
+        setStoreEmailInContext(sellerData?.email);
+      } else {
+        const BuyerData = await getUserDataFromCollection("buyer", email);
+        console.log(BuyerData);
+        setUserAccessKey(BuyerData?.accessKey);
+        setName(BuyerData?.Name);
+        setType(BuyerData?.type);
+        setUserEmailInContext(BuyerData?.email);
+      }
+    } catch (error) {
+      console.error("Error fetching user data:", error);
+    }
+  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -26,14 +97,16 @@ const LogIn = () => {
   const signInUser = (email, password) => {
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
-        console.log(userCredential)
+        console.log(userCredential.user.email);
         localStorage.setItem(
           "expirationTime",
           userCredential.user.stsTokenManager.expirationTime.toString()
         );
+
+        fetchUserData(userCredential.user.email);
         setLoading(false); // Set loading to false when login is successful
         toast.success("Logged in successfully!");
-        setUserIsAuthenticated(true)
+        setUserIsAuthenticated(true);
         navigate("/dashboard"); // Navigate to home page or desired page on successful login
       })
       .catch((error) => {
