@@ -5,8 +5,7 @@ export const UserDataContext = createContext();
 
 const UserDataProvider = (props) => {
   const expirationTime = parseInt(localStorage.getItem("expirationTime"));
-  const [accessKey, setAccessKey] = useState(null);
-  const [userType, setUserType] = useState(null);
+  const [accessKey, setAccessKey] = useState("");
   const [storeEmail, setStoreEmailInContext] = useState("");
   const [email, setUserEmailInContext] = useState("");
   const [name, setName] = useState("");
@@ -14,6 +13,7 @@ const UserDataProvider = (props) => {
   const [location, setLocation] = useState("");
   const [storeName, setStoreName] = useState("");
   const [type, setType] = useState("");
+
   const [userIsAuthenticated, setUserIsAuthenticated] = useState(
     isNaN(expirationTime)
       ? false
@@ -27,8 +27,6 @@ const UserDataProvider = (props) => {
     setUserIsAuthenticated,
     accessKey,
     setAccessKey,
-    userType,
-    setUserType,
     email,
     setUserEmailInContext,
     name,

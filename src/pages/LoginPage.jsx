@@ -27,6 +27,7 @@ const LogIn = () => {
     setUserAccessKey,
     setName,
     setUserEmailInContext,
+    setAccessKey
   } = useContext(UserDataContext);
 
   function filterSellerData(data, collectionName) {
@@ -71,6 +72,7 @@ const LogIn = () => {
       const sellerData = await getUserDataFromCollection("seller", email);
       console.log(sellerData);
       if (sellerData) {
+        setAccessKey(sellerData?.accessKey);
         setLocation(sellerData?.location);
         setStoreName(sellerData?.storeName);
         setType(sellerData?.type);
