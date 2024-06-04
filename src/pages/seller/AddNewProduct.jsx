@@ -21,6 +21,11 @@ import {
 } from "@nextui-org/react";
 import { Select, SelectItem } from "@nextui-org/react";
 import { rashanList } from "@/configs/RashanList";
+import { UserDataContext } from "@/contexts/UserDataContext";
+import { useContext } from "react";
+import { collection, addDoc } from "firebase/firestore";
+import { firebaseDb } from "@/firebase";
+import { toast } from "react-toastify";
 
 function SelectProduct({ selectedProduct, onSelect }) {
   return (
@@ -52,18 +57,22 @@ const AddNewProduct = ({ className }) => {
   const [price, setPrice] = useState("");
   const [productDescription, setProductDescription] = useState("");
   const [selectedProduct, setSelectedProduct] = useState(new Set([]));
+  const { accessKey } = useContext(UserDataContext);
+  console.log(accessKey);
 
-  const handleAddProduct = () => {
+  const handleAddProduct = async () => {
     if (!productImage || !price || !productDescription) {
       alert("All fields are required!");
       return;
     }
-    console.log({
-      selectedProduct,
-      productImage,
-      price,
-      productDescription,
-    });
+
+    await addDoc(collection(firebaseDb, `seller/${accessKey}/products`), {
+      //New product is added here in the products collection of the store
+      product: [...selectedProduct.values()][0],
+      imageUrl: productImage,
+      productPrice: price,
+      description: productDescription,
+    }).then(() => toast.success("Product Added Successfully"));
     onOpenChange(false);
     setProductImage("");
     setPrice("");
