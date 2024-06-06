@@ -7,10 +7,10 @@ const ProtectedRoutes = () => {
     useContext(UserDataContext);
   console.log(userIsAuthenticated);
 
-  if (userIsAuthenticated) return <Outlet />
+  if (userIsAuthenticated) return <Outlet />;
   else {
-    setUserIsAuthenticated(false)
-    return <Navigate to="/login" />
+    setUserIsAuthenticated(false);
+    return <Navigate to="/login" />;
   }
 };
 

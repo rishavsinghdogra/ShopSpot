@@ -8,8 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { toast } from "react-toastify";
 import { UserDataContext } from "@/contexts/UserDataContext";
-import { query, collection, where, getDocs } from "firebase/firestore";
-import { firebaseDb } from "../firebase";
+import { fetchUserData } from "@/utils/Utils";
 
 const auth = getAuth(app);
 
@@ -20,75 +19,14 @@ const LogIn = () => {
   const navigate = useNavigate();
   const {
     setUserIsAuthenticated,
+    setType,
+    setAccessKey,
     setStoreEmailInContext,
     setLocation,
     setStoreName,
-    setType,
-    setUserAccessKey,
     setName,
     setUserEmailInContext,
-    setAccessKey
   } = useContext(UserDataContext);
-
-  function filterSellerData(data, collectionName) {
-    return data?.map((seller) => {
-      if (collectionName === "seller") {
-        const { email, location, storeName, type } =
-          seller.doc.data.value.mapValue.fields;
-        const accessKey = seller.doc.key.path.segments[6]; // accessKey is always at index 6
-        return {
-          email: email.stringValue,
-          location: location.stringValue,
-          storeName: storeName.stringValue,
-          type: type.stringValue,
-          accessKey: accessKey ? accessKey : "",
-        };
-      } else {
-        const { email, Name, type } = seller.doc.data.value.mapValue.fields;
-        const accessKey = seller.doc.key.path.segments[6];
-        return {
-          email: email.stringValue,
-          Name: Name.stringValue,
-          type: type.stringValue,
-          accessKey: accessKey ? accessKey : "",
-        };
-      }
-    });
-  }
-
-  const getUserDataFromCollection = async (collectionName, userEmail) => {
-    const collectionRef = collection(firebaseDb, collectionName);
-    const q = query(collectionRef, where("email", "==", userEmail));
-
-    const result = await getDocs(q);
-    return filterSellerData(
-      result?.["_snapshot"]?.docChanges,
-      collectionName
-    )[0]; //Zero index because result will be one in case of login
-  };
-
-  const fetchUserData = async (email) => {
-    try {
-      const sellerData = await getUserDataFromCollection("seller", email);
-      console.log(sellerData);
-      if (sellerData) {
-        setAccessKey(sellerData?.accessKey);
-        setLocation(sellerData?.location);
-        setStoreName(sellerData?.storeName);
-        setType(sellerData?.type);
-        setStoreEmailInContext(sellerData?.email);
-      } else {
-        const BuyerData = await getUserDataFromCollection("buyer", email);
-        console.log(BuyerData);
-        setUserAccessKey(BuyerData?.accessKey);
-        setName(BuyerData?.Name);
-        setType(BuyerData?.type);
-        setUserEmailInContext(BuyerData?.email);
-      }
-    } catch (error) {
-      console.error("Error fetching user data:", error);
-    }
-  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -98,14 +36,27 @@ const LogIn = () => {
 
   const signInUser = (email, password) => {
     signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
+      .then(async (userCredential) => {
         console.log(userCredential.user.email);
         localStorage.setItem(
           "expirationTime",
           userCredential.user.stsTokenManager.expirationTime.toString()
         );
+        const userData = await fetchUserData(userCredential.user.email);
+        console.log("y", userData);
+        if (userData?.type === "seller") {
+          setAccessKey(userData?.accessKey);
+          setStoreEmailInContext(userData?.email);
+          setLocation(userData?.location);
+          setStoreName(userData?.storeName);
+          setType(userData?.type);
+        } else {
+          setAccessKey(userData?.accessKey);
+          setName(userData?.Name);
+          setUserEmailInContext(userData?.email);
+          setType(userData?.type);
+        }
 
-        fetchUserData(userCredential.user.email);
         setLoading(false); // Set loading to false when login is successful
         toast.success("Logged in successfully!");
         setUserIsAuthenticated(true);

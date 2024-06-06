@@ -61,7 +61,7 @@ const AddNewProduct = ({ className }) => {
   console.log(accessKey);
 
   const handleAddProduct = async () => {
-    if (!productImage || !price || !productDescription) {
+    if (!productImage || !price || !productDescription || !selectedProduct) {
       alert("All fields are required!");
       return;
     }
