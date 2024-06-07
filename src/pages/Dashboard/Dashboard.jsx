@@ -20,7 +20,7 @@ const Dashboard = () => {
   return (
     <>
       {type === "seller" ? (
-        <div className="">
+        <div className="bg-gradient-to-r from-[#7882f3] to-[#5555ee] min-h-screen">
           <Sidebar
             userType="seller"
             selectedComponent={selectedComponent}
@@ -41,7 +41,7 @@ const Dashboard = () => {
           )}
         </div>
       ) : (
-        <div className="">
+        <div className="bg-gradient-to-r from-[#7882f3] to-[#5555ee] min-h-screen">
           <Sidebar
             userType="buyer"
             selectedComponent={selectedComponent}

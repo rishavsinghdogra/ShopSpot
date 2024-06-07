@@ -36,6 +36,7 @@ const getUserDataFromCollection = async (collectionName, userEmail) => {
 };
 
 export const fetchUserData = async (email) => {
+  // function that fetch user data
   try {
     const sellerData = await getUserDataFromCollection("seller", email);
     if (sellerData) {
@@ -47,4 +48,33 @@ export const fetchUserData = async (email) => {
   } catch (error) {
     console.error("Error fetching user data:", error);
   }
+};
+
+const filterStoresData = (data) => {
+  return data?.map((seller) => {
+    const { email, location, storeName, type } =
+      seller.doc.data.value.mapValue.fields;
+    const accessKey = seller.doc.key.path.segments[6]; // accessKey is always at index 6
+    return {
+      email: email.stringValue,
+      location: location.stringValue,
+      storeName: storeName.stringValue,
+      type: type.stringValue,
+      accessKey: accessKey ? accessKey : "",
+    };
+  });
+};
+
+export const fetchStoresData = async (sectorIsSpecified) => {
+  //function that fetch stores data
+  const storesRef = collection(firebaseDb, "seller");
+  let q;
+  if (sectorIsSpecified) {
+    q = query(storesRef, where("location", "==", sectorIsSpecified));
+  } else {
+    q = query(storesRef, where("type", "==", "seller"));
+  }
+
+  const result = await getDocs(q);
+  return filterStoresData(result?.["_snapshot"]?.docChanges);
 };
