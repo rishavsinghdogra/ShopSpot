@@ -9,6 +9,7 @@ import SellerAnalytics from "../seller/analytics/SellerAnalytics";
 import Orders from "../buyer/orders/Orders";
 import BuyersAnalytics from "../buyer/analytics/buyersAnalytics";
 
+
 const Dashboard = () => {
   const { type, storeName, storeEmail, accessKey } =
     useContext(UserDataContext);
@@ -16,6 +17,7 @@ const Dashboard = () => {
   const [selectedComponent, setSelectedComponent] = useState(
     type === "seller" ? "/dashboard" : "/home"
   );
+  
 
   return (
     <>
@@ -33,7 +35,7 @@ const Dashboard = () => {
               accessKey={accessKey}
             />
           ) : selectedComponent === "/home" ? (
-            <Home />
+            <Home setSelectedComponent={setSelectedComponent}  />
           ) : selectedComponent === "/my-customers" ? (
             <Customers />
           ) : (
@@ -48,7 +50,7 @@ const Dashboard = () => {
             setSelectedComponent={setSelectedComponent}
           />
           {selectedComponent === "/home" ? (
-            <Home />
+            <Home setSelectedComponent={setSelectedComponent}  />
           ) : selectedComponent === "/cart" ? (
             <Cart />
           ) : selectedComponent === "/orders" ? (

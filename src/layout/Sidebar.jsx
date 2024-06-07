@@ -78,10 +78,11 @@ const Sidebar = ({ userType, selectedComponent, setSelectedComponent }) => {
                 localStorage.removeItem("expirationTime");
                 setUserIsAuthenticated(false);
               }}
+              className = "text-red-600"
             >
               Log out
               <DropdownMenuShortcut>
-                <LogOut />
+                <LogOut color="red"/>
               </DropdownMenuShortcut>
             </DropdownMenuItem>
           </DropdownMenuContent>

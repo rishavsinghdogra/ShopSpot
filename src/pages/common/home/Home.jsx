@@ -6,8 +6,8 @@ import LocationSearch from "@/components/custom/LocationSearch";
 
 const ITEMS_PER_PAGE = 10; // Define the number of items per page
 
-const Home = ({ slectedComponent }) => {
-  const [storesData, setStoresData] = useState([]);
+const Home = ({ setSelectedComponent, selectedComponent }) => {
+  const [storesData, setStoresData] = useState(['empty']);  //empty to make array length one so that not found doesn't render first 
   const [loading, setLoading] = useState(true);
   const [page, setPage] = useState(1); // Current page state
   const [value, setValue] = useState(null);
@@ -44,10 +44,12 @@ const Home = ({ slectedComponent }) => {
     setValue("");
   };
 
+
+
   return (
     <div className="home flex flex-col items-center ml-[50px] px-4 py-8">
       {/* Banner Section */}
-      <div className="banner flex flex-col items-center py-12 bg-gray-100 bg-opacity-20 backdrop-filter backdrop-blur-lg rounded-lg text-white w-full relative z-10">
+      <div className="banner flex flex-col items-center py-12 px-8 bg-gray-100 bg-opacity-20 backdrop-filter backdrop-blur-lg rounded-lg text-white w-full relative z-10">
         <h1 className="text-4xl font-bold mb-4">Welcome to ShopSpot</h1>
         <p className="text-lg text-center mb-6">
           Discover a wide variety of stores and find the best deals on your
@@ -85,7 +87,7 @@ const Home = ({ slectedComponent }) => {
         {!storesData.length ? (
           <div className="flex flex-col items-center justify-center text-5xl text-white font-bold">
             No shop found in this area
-            <img src = "/public/images/notFound.png" className="w-96"/>
+            <img src="/public/images/notFound.png" className="w-96" />
           </div>
         ) : (
           <div className="flex h-[70%] flex-wrap justify-center w-full max-w-screen-xl mx-auto">
@@ -105,6 +107,7 @@ const Home = ({ slectedComponent }) => {
                   storeName={store.storeName}
                   location={store.location}
                   email={store.email}
+                  setSelectedComponent = {setSelectedComponent}
                 />
               ))
             )}
