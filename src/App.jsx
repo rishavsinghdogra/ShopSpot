@@ -8,24 +8,12 @@ import SignUP from "./pages/SignUp";
 import ProtectedRoutes from "./routes/ProtectedRoutes";
 import { AnimatePresence } from "framer-motion";
 import Dashboard from "./pages/Dashboard/Dashboard";
-
-
-// const auth = getAuth(app)
-
-// const signUpUser = () => {
-//   createUserWithEmailAndPassword(auth,"rishavsd2000"
-// }
-
-// const db = getDatabase(app);
-
-// const putData = () => {
-//   set(ref(db, "users"), {
-//     id: 1,
-//     name: "Rishav",
-//     email: "rishavsd2000@gmail.com",
-//     age: 23,
-//   });
-// };
+import Cart from "./pages/buyer/cart/Cart";
+import Orders from "./pages/buyer/orders/Orders";
+import Customers from "./pages/seller/customers/Customers";
+import Home from "./pages/common/home/Home";
+import SellerAnalytics from "./pages/seller/analytics/SellerAnalytics";
+import BuyersAnalytics from "./pages/buyer/analytics/buyersAnalytics";
 
 function App() {
   const location = useLocation();
@@ -35,6 +23,12 @@ function App() {
         <Routes location={location} key={location.pathname}>
           <Route element={<ProtectedRoutes />}>
             <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/cart" element={<Cart />} />
+            <Route path="/orders" element={<Orders />} />
+            <Route path="/home" element={<Home />} />
+            <Route path="/my-customers" element={<Customers />} />
+            <Route path="/seller-analytics" element={<SellerAnalytics />} />
+            <Route path="/buyers-analytics" element={<BuyersAnalytics />} />
           </Route>
           <Route path="/" element={<HomePage />} />
           <Route path="/login" element={<LoginPage />} />
