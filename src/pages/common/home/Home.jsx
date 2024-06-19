@@ -6,12 +6,13 @@ import LocationSearch from "@/components/custom/LocationSearch";
 
 const ITEMS_PER_PAGE = 10; // Define the number of items per page
 
-const Home = ({ setSelectedComponent, selectedComponent }) => {
+const Home = ({ setSelectedComponent, setOtherStoreAccessKey}) => {
   const [storesData, setStoresData] = useState(['empty']);  //empty to make array length one so that not found doesn't render first 
   const [loading, setLoading] = useState(true);
   const [page, setPage] = useState(1); // Current page state
   const [value, setValue] = useState(null);
   const storesSectionRef = useRef(null); // Reference to the stores section
+  console.log(storesData)
 
   useEffect(() => {
     const fetchStores = async () => {
@@ -108,6 +109,8 @@ const Home = ({ setSelectedComponent, selectedComponent }) => {
                   location={store.location}
                   email={store.email}
                   setSelectedComponent = {setSelectedComponent}
+                  currentStoreAccessKey = {store.accessKey}
+                  setOtherStoreAccessKey = {setOtherStoreAccessKey}
                 />
               ))
             )}

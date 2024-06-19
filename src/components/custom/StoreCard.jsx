@@ -1,7 +1,14 @@
 import { Card, Image, CardHeader, CardBody } from "@nextui-org/react";
 import { Button } from "@nextui-org/react";
 
-const StoreCard = ({ location, storeName, email, setSelectedComponent }) => {
+const StoreCard = ({
+  location,
+  storeName,
+  email,
+  setSelectedComponent,
+  currentStoreAccessKey,
+  setOtherStoreAccessKey,
+}) => {
   return (
     <Card className="py-4 bg-fuchsia-50 ml-2  mt-3 rounded-xl shadow-xl hover:scale-105 transition-all ease-in">
       <CardHeader className="pb-0 pt-2 px-4 flex-col items-start">
@@ -23,7 +30,13 @@ const StoreCard = ({ location, storeName, email, setSelectedComponent }) => {
           src="public/images/shop.png"
           width={100}
         />
-        <Button onClick={() => setSelectedComponent("/analytics") } className="mt-2 font-bold text-gray-50 rounded-lg bg-slate-900 ">
+        <Button
+          onClick={() => {
+            setSelectedComponent("/analytics");
+            setOtherStoreAccessKey(currentStoreAccessKey);
+          }}
+          className="mt-2 font-bold text-gray-50 rounded-lg bg-slate-900 "
+        >
           Checkout
         </Button>
       </CardBody>

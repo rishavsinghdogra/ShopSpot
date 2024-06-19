@@ -78,3 +78,24 @@ export const fetchStoresData = async (sectorIsSpecified) => {
   const result = await getDocs(q);
   return filterStoresData(result?.["_snapshot"]?.docChanges);
 };
+
+const filterProductsData = (data) => {
+  return data?.map((seller) => {
+    const { description, imageUrl, product, productPrice } =
+      seller.doc.data.value.mapValue.fields;
+    const accessKey = seller.doc.key.path.segments[6]; // accessKey is always at index 6
+    return {
+      description: description.stringValue,
+      imageUrl: imageUrl.stringValue,
+      productPrice: productPrice.integerValue,
+      product: product.stringValue,
+      accessKey: accessKey ? accessKey : "",
+    };
+  });
+};
+export const fetchProductsData = async (accessKey) => {
+  //function that fetch products data
+  const productsRef = collection(firebaseDb, `seller/${accessKey}/products`);
+  const result = await getDocs(productsRef);
+  return filterProductsData(result?.["_snapshot"]?.docChanges);
+};

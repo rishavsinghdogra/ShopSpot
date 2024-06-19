@@ -13,7 +13,7 @@ import Orders from "./pages/buyer/orders/Orders";
 import Customers from "./pages/seller/customers/Customers";
 import Home from "./pages/common/home/Home";
 import SellerAnalytics from "./pages/seller/analytics/SellerAnalytics";
-import BuyersAnalytics from "./pages/buyer/analytics/buyersAnalytics";
+
 
 function App() {
   const location = useLocation();
@@ -28,7 +28,7 @@ function App() {
             <Route path="/home" element={<Home />} />
             <Route path="/my-customers" element={<Customers />} />
             <Route path="/seller-analytics" element={<SellerAnalytics />} />
-            <Route path="/buyers-analytics" element={<BuyersAnalytics />} />
+
           </Route>
           <Route path="/" element={<HomePage />} />
           <Route path="/login" element={<LoginPage />} />

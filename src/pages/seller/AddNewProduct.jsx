@@ -70,7 +70,7 @@ const AddNewProduct = ({ className }) => {
       //New product is added here in the products collection of the store
       product: [...selectedProduct.values()][0],
       imageUrl: productImage,
-      productPrice: price,
+      productPrice: Number(price),
       description: productDescription,
     }).then(() => toast.success("Product Added Successfully"));
     onOpenChange(false);

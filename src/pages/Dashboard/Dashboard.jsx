@@ -7,8 +7,6 @@ import Cart from "../buyer/cart/Cart";
 import Customers from "../seller/customers/Customers";
 import SellerAnalytics from "../seller/analytics/SellerAnalytics";
 import Orders from "../buyer/orders/Orders";
-import BuyersAnalytics from "../buyer/analytics/buyersAnalytics";
-
 
 const Dashboard = () => {
   const { type, storeName, storeEmail, accessKey } =
@@ -17,12 +15,19 @@ const Dashboard = () => {
   const [selectedComponent, setSelectedComponent] = useState(
     type === "seller" ? "/dashboard" : "/home"
   );
-  
+  const [otherStoreAccessKey, setOtherStoreAccessKey] = useState(null);
 
   return (
     <>
       {type === "seller" ? (
-        <div className="bg-gradient-to-r from-[#7882f3] to-[#5555ee] min-h-screen">
+        <div
+          style={{
+            backgroundImage: "url('/images/backgroundImagee.jpg')",
+            backgroundSize: "cover",
+            backgroundRepeat: "no-repeat",
+            minHeight: "100vh",
+          }}
+        >
           <Sidebar
             userType="seller"
             selectedComponent={selectedComponent}
@@ -35,11 +40,17 @@ const Dashboard = () => {
               accessKey={accessKey}
             />
           ) : selectedComponent === "/home" ? (
-            <Home setSelectedComponent={setSelectedComponent}  />
+            <Home
+              setSelectedComponent={setSelectedComponent}
+              setOtherStoreAccessKey={setOtherStoreAccessKey}
+            />
           ) : selectedComponent === "/my-customers" ? (
             <Customers />
           ) : (
-            <SellerAnalytics />
+            <SellerAnalytics
+              accessKey={accessKey}
+              otherStoreAccessKey={otherStoreAccessKey}
+            /> //Analytics related to sellers will be avaible to sellers as well so that they don't need to make a buyers account to havee seller experience
           )}
         </div>
       ) : (
@@ -50,13 +61,16 @@ const Dashboard = () => {
             setSelectedComponent={setSelectedComponent}
           />
           {selectedComponent === "/home" ? (
-            <Home setSelectedComponent={setSelectedComponent}  />
+            <Home setSelectedComponent={setSelectedComponent} />
           ) : selectedComponent === "/cart" ? (
             <Cart />
           ) : selectedComponent === "/orders" ? (
             <Orders />
           ) : (
-            <BuyersAnalytics />
+            <SellerAnalytics
+              accessKey={accessKey}
+              otherStoreAccessKey={otherStoreAccessKey}
+            /> //Analytics related to sellers will be avaible to buyers
           )}
         </div>
       )}
