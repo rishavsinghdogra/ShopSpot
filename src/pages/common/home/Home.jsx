@@ -1,28 +1,45 @@
 import { useState, useEffect, useRef } from "react";
-import { fetchStoresData } from "@/utils/Utils";
+import { fetchStoresData, fetchProductsData } from "@/utils/Utils";
 import StoreCard from "@/components/custom/StoreCard";
 import StoreSkeleton from "@/components/custom/StoreSkeleton";
 import LocationSearch from "@/components/custom/LocationSearch";
 
 const ITEMS_PER_PAGE = 10; // Define the number of items per page
 
-const Home = ({ setSelectedComponent, setOtherStoreAccessKey}) => {
-  const [storesData, setStoresData] = useState(['empty']);  //empty to make array length one so that not found doesn't render first 
+const Home = ({ setSelectedComponent, setOtherStoreAccessKey }) => {
+  const [storesData, setStoresData] = useState(["empty"]); //empty to make array length one so that not found doesn't render first
   const [loading, setLoading] = useState(true);
   const [page, setPage] = useState(1); // Current page state
   const [value, setValue] = useState(null);
   const storesSectionRef = useRef(null); // Reference to the stores section
-  console.log(storesData)
+  console.log(storesData);
 
   useEffect(() => {
     const fetchStores = async () => {
+      //function to fetch stores
       setLoading(true);
       const result = await fetchStoresData(value);
       setStoresData(result);
       setLoading(false); // Data has been loaded
     };
     fetchStores();
-  }, []);
+  }, );
+
+  console.log(storesData.length);
+
+  // const fetchEveryStoreProducts = async () => {
+  //   let allStoresData = [];
+
+  //   for (let i = 0; i < storesData.length; i++) {
+  //     const productsData = await fetchProductsData(storesData[i]?.accessKey);
+  //     allStoresData = [...allStoresData, ...productsData];
+  //   }
+
+  //   console.log("allproductstoexist", allStoresData);
+  //   setEveryStoreProductData(allStoresData);
+  // };
+
+  // fetchEveryStoreProducts();
 
   // Calculate the current page's data
   const currentPageData = storesData.slice(
@@ -44,8 +61,6 @@ const Home = ({ setSelectedComponent, setOtherStoreAccessKey}) => {
     storesSectionRef.current.scrollIntoView({ behavior: "smooth" });
     setValue("");
   };
-
-
 
   return (
     <div className="home flex flex-col items-center ml-[50px] px-4 py-8">
@@ -108,9 +123,9 @@ const Home = ({ setSelectedComponent, setOtherStoreAccessKey}) => {
                   storeName={store.storeName}
                   location={store.location}
                   email={store.email}
-                  setSelectedComponent = {setSelectedComponent}
-                  currentStoreAccessKey = {store.accessKey}
-                  setOtherStoreAccessKey = {setOtherStoreAccessKey}
+                  setSelectedComponent={setSelectedComponent}
+                  currentStoreAccessKey={store.accessKey}
+                  setOtherStoreAccessKey={setOtherStoreAccessKey}
                 />
               ))
             )}

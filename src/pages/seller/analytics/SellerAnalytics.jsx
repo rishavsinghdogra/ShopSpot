@@ -5,6 +5,7 @@ import ProductCard from "@/components/custom/ProductCard";
 const SellerAnalytics = ({ accessKey, otherStoreAccessKey }) => {
   const [loading, setLoading] = useState(false);
   const [productsData, setProductsData] = useState([]);
+  console.log(productsData)
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 14;
   console.log(productsData);

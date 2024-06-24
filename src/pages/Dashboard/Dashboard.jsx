@@ -54,14 +54,24 @@ const Dashboard = () => {
           )}
         </div>
       ) : (
-        <div className="bg-gradient-to-r from-[#7882f3] to-[#5555ee] min-h-screen">
+        <div
+          style={{
+            backgroundImage: "url('/images/backgroundImagee.jpg')",
+            backgroundSize: "cover",
+            backgroundRepeat: "no-repeat",
+            minHeight: "100vh",
+          }}
+        >
           <Sidebar
             userType="buyer"
             selectedComponent={selectedComponent}
             setSelectedComponent={setSelectedComponent}
           />
           {selectedComponent === "/home" ? (
-            <Home setSelectedComponent={setSelectedComponent} />
+            <Home
+              setSelectedComponent={setSelectedComponent}
+              setOtherStoreAccessKey={setOtherStoreAccessKey}
+            />
           ) : selectedComponent === "/cart" ? (
             <Cart />
           ) : selectedComponent === "/orders" ? (
