@@ -37,6 +37,7 @@ const ProductPriceChart = ({ data }) => {
             categories: allProductNames,
           },
           fill: {
+            colors: "#04e397",
             opacity: 1,
           },
           tooltip: {
@@ -48,7 +49,7 @@ const ProductPriceChart = ({ data }) => {
         series={Prices}
         width={1000}
         height={400}
-        type="area"
+        type="bar"
       />
     </div>
   );
