@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { fetchProductsData } from "@/utils/Utils";
 import ProductCard from "@/components/custom/ProductCard";
+import ProductPriceChart from "./ProductPriceChart";
 
 const SellerAnalytics = ({ accessKey, otherStoreAccessKey }) => {
   const [loading, setLoading] = useState(false);
@@ -63,6 +64,9 @@ const SellerAnalytics = ({ accessKey, otherStoreAccessKey }) => {
           />
         ))}
       </div>
+      
+      {/* Product Price Chart */}
+      <ProductPriceChart data = {productsData}/>
 
       {/* Pagination Controls */}
       <div className="flex justify-center my-4">

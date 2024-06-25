@@ -8,7 +8,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { NextUIProvider } from "@nextui-org/react";
 import UserDataProvider from "./contexts/UserDataContext.jsx";
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <React.StrictMode>
+  // <React.StrictMode>
     <BrowserRouter>
      <UserDataProvider>
       <NextUIProvider>
@@ -22,5 +22,5 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       </NextUIProvider>
       </UserDataProvider>
     </BrowserRouter>
-  </React.StrictMode>
+  // </React.StrictMode>
 );

@@ -3,6 +3,8 @@ import { fetchStoresData, fetchProductsData } from "@/utils/Utils";
 import StoreCard from "@/components/custom/StoreCard";
 import StoreSkeleton from "@/components/custom/StoreSkeleton";
 import LocationSearch from "@/components/custom/LocationSearch";
+import SelecLocationForAnalytics from "./SelectLocationForAnalytics";
+import ProductPriceInShop from "./ProductPriceInShops";
 
 const ITEMS_PER_PAGE = 10; // Define the number of items per page
 
@@ -12,7 +14,10 @@ const Home = ({ setSelectedComponent, setOtherStoreAccessKey }) => {
   const [page, setPage] = useState(1); // Current page state
   const [value, setValue] = useState(null);
   const storesSectionRef = useRef(null); // Reference to the stores section
-  console.log(storesData);
+  // const [allStoresNames, setAllStoresNames] = useState(null)
+  const [chartData, setChartData] = useState(null);
+
+  // console.log("Stores data",storesData);
 
   useEffect(() => {
     const fetchStores = async () => {
@@ -23,10 +28,16 @@ const Home = ({ setSelectedComponent, setOtherStoreAccessKey }) => {
       setLoading(false); // Data has been loaded
     };
     fetchStores();
-  }, );
+  }, [value]);
 
-  console.log(storesData.length);
-
+  function getAllStroesNames() {
+    if (storesData[0] !== "empty") {
+      const result = storesData.map((store) => store?.storeName);
+      // console.log("All stores names",result)
+      return result;
+    }
+  }
+  const allStoresNames = getAllStroesNames();
   // const fetchEveryStoreProducts = async () => {
   //   let allStoresData = [];
 
@@ -72,7 +83,7 @@ const Home = ({ setSelectedComponent, setOtherStoreAccessKey }) => {
           favorite products. Our platform offers a seamless shopping experience
           with top-rated stores at your fingertips.
         </p>
-        <div className="flex flex-row">
+        <div className="flex flex-row space-x-2 ">
           <button
             onClick={handleGetStartedClick}
             className="px-8 py-3 bg-white text-gray-800 rounded-lg hover:bg-gray-200 transition-colors duration-300 mr-2"
@@ -85,6 +96,13 @@ const Home = ({ setSelectedComponent, setOtherStoreAccessKey }) => {
             value={value}
             setValue={setValue}
           />
+          {allStoresNames && (
+            <SelecLocationForAnalytics
+              setChartData={setChartData}
+              sector={value}
+              storesData={storesData}
+            />
+          )}
         </div>
       </div>
 
@@ -93,6 +111,16 @@ const Home = ({ setSelectedComponent, setOtherStoreAccessKey }) => {
         <div className="absolute top-[-20%] left-1/2 transform -translate-x-1/2 w-80 h-80 bg-gradient-to-br from-blue-400 to-purple-600 rounded-full animate-float"></div>
         <div className="absolute top-[-10%] left-1/2 transform -translate-x-1/2 w-60 h-60 bg-gradient-to-br from-purple-400 to-blue-600 rounded-full animate-float-slower"></div>
       </div>
+
+      {chartData && (
+        <div className="mt-10">
+        <ProductPriceInShop
+          chartData={chartData}
+          chartShopNames={allStoresNames}
+          
+        />
+        </div>
+      )}
 
       {/* Stores Section */}
 
@@ -106,7 +134,7 @@ const Home = ({ setSelectedComponent, setOtherStoreAccessKey }) => {
             <img src="/public/images/notFound.png" className="w-96" />
           </div>
         ) : (
-          <div className="flex h-[70%] flex-wrap justify-center w-full max-w-screen-xl mx-auto">
+          <div className="flex h-[70%] flex-wrap justify-center w-full max-w-screen-xl mx-auto my-4">
             {loading ? (
               // Display skeletons while loading
               <>
@@ -134,7 +162,7 @@ const Home = ({ setSelectedComponent, setOtherStoreAccessKey }) => {
 
         {/* Pagination controls */}
         {!loading && totalPages > 1 && (
-          <div className="flex justify-center mt-4">
+          <div className="flex justify-center my-4">
             <button
               onClick={() => handlePageChange(page - 1)}
               disabled={page === 1}
@@ -162,7 +190,7 @@ const Home = ({ setSelectedComponent, setOtherStoreAccessKey }) => {
             <button
               onClick={() => handlePageChange(page + 1)}
               disabled={page === totalPages}
-              className={`px-4 py-2 mx-1 text-white bg-slate-900 rounded-xl ${
+              className={`px-4 py-2 mx-1 text-white bg-slate-900 rounded-xl  ${
                 page === totalPages
                   ? "opacity-50 cursor-not-allowed"
                   : "hover:bg-slate-700"
@@ -173,6 +201,7 @@ const Home = ({ setSelectedComponent, setOtherStoreAccessKey }) => {
           </div>
         )}
       </div>
+      
     </div>
   );
 };
