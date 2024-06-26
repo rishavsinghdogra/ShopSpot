@@ -41,39 +41,6 @@ const UserDataProvider = (props) => {
   );
   console.log(userIsAuthenticated, expirationTime);
 
-  // Persist state to localStorage when it changes
-  // useEffect(() => {
-  //   localStorage.setItem("accessKey", JSON.stringify(accessKey));
-  // }, [accessKey]);
-
-  // useEffect(() => {
-  //   localStorage.setItem("storeEmail", JSON.stringify(storeEmail));
-  // }, [storeEmail]);
-
-  // useEffect(() => {
-  //   localStorage.setItem("email", JSON.stringify(email));
-  // }, [email]);
-
-  // useEffect(() => {
-  //   localStorage.setItem("name", JSON.stringify(name));
-  // }, [name]);
-
-  // useEffect(() => {
-  //   localStorage.setItem("userAccessKey", JSON.stringify(userAccessKey));
-  // }, [userAccessKey]);
-
-  // useEffect(() => {
-  //   localStorage.setItem("location", JSON.stringify(location));
-  // }, [location]);
-
-  // useEffect(() => {
-  //   localStorage.setItem("storeName", JSON.stringify(storeName));
-  // }, [storeName]);
-
-  // useEffect(() => {
-  //   localStorage.setItem("type", JSON.stringify(type));
-  // }, [type]);
-
   localStorage.setItem("accessKey", JSON.stringify(accessKey));
   localStorage.setItem("storeEmail", JSON.stringify(storeEmail));
   localStorage.setItem("email", JSON.stringify(email));
@@ -82,6 +49,12 @@ const UserDataProvider = (props) => {
   localStorage.setItem("location", JSON.stringify(location));
   localStorage.setItem("storeName", JSON.stringify(storeName));
   localStorage.setItem("type", JSON.stringify(type));
+
+
+  const[currentStore, setCurrentStore] = useState({
+    name : "",
+    accessKey : "",
+  })
 
   const contextValue = {
     userIsAuthenticated,
@@ -102,6 +75,8 @@ const UserDataProvider = (props) => {
     setStoreName,
     type,
     setType,
+    currentStore,
+    setCurrentStore,
   };
 
   return (

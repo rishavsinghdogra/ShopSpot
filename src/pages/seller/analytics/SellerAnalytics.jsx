@@ -2,14 +2,21 @@ import { useEffect, useState } from "react";
 import { fetchProductsData } from "@/utils/Utils";
 import ProductCard from "@/components/custom/ProductCard";
 import ProductPriceChart from "./ProductPriceChart";
+import { DNA } from "react-loader-spinner";
+import { useContext } from "react";
+import { UserDataContext } from "@/contexts/UserDataContext";
+import { CardFooter } from "@/components/ui/card";
 
 const SellerAnalytics = ({ accessKey, otherStoreAccessKey }) => {
   const [loading, setLoading] = useState(false);
   const [productsData, setProductsData] = useState([]);
-  console.log(productsData)
+  console.log(productsData);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 14;
   console.log(productsData);
+  const { currentStore } = useContext(UserDataContext);
+
+  console.log(currentStore);
 
   useEffect(() => {
     const fetchStores = async () => {
@@ -18,7 +25,9 @@ const SellerAnalytics = ({ accessKey, otherStoreAccessKey }) => {
         otherStoreAccessKey ? otherStoreAccessKey : accessKey
       );
       setProductsData(result);
-      setLoading(false);
+      setTimeout(function () {
+        setLoading(false);
+      }, 2000);
     };
     fetchStores();
   }, [accessKey, otherStoreAccessKey]);
@@ -35,7 +44,12 @@ const SellerAnalytics = ({ accessKey, otherStoreAccessKey }) => {
   const totalPages = Math.ceil(productsData.length / itemsPerPage);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return (
+      <div className=" min-h-screen w-full flex flex-col items-center justify-center">
+        <DNA height="200" width="200" />
+        <div className=" text-slate-200 text-2xl">Analytics Loading...</div>
+      </div>
+    );
   }
 
   return (
@@ -49,6 +63,16 @@ const SellerAnalytics = ({ accessKey, otherStoreAccessKey }) => {
           Get useful insights with the help of interactive graphs, Which
           enhances your decision making power!
         </p>
+        <div className="">
+          <CardFooter className="flex justify-center font-bold  mx-auto mb-3 w-[20%] h-[20%] space-x-2 bg-blue-300/70 border border-white/20 rounded-xl py-1 shadow-sm absolute bottom-1 left-1 right-1 z-10 ">
+            <img
+              src="./images/Store.png"
+              alt=""
+              className="h-8 "
+            />
+            <h1 className="h-8 relative top-1 ">{currentStore?.name}</h1>
+          </CardFooter>
+        </div>
       </div>
 
       {/* Product Listing */}
@@ -64,9 +88,9 @@ const SellerAnalytics = ({ accessKey, otherStoreAccessKey }) => {
           />
         ))}
       </div>
-      
+
       {/* Product Price Chart */}
-      <ProductPriceChart data = {productsData}/>
+      <ProductPriceChart data={productsData} />
 
       {/* Pagination Controls */}
       <div className="flex justify-center my-4">

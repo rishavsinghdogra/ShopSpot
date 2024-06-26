@@ -1,5 +1,7 @@
 import { Card, Image, CardHeader, CardBody } from "@nextui-org/react";
 import { Button } from "@nextui-org/react";
+import { useContext } from "react";
+import { UserDataContext } from "@/contexts/UserDataContext";
 
 const StoreCard = ({
   location,
@@ -9,6 +11,7 @@ const StoreCard = ({
   currentStoreAccessKey,
   setOtherStoreAccessKey,
 }) => {
+  const{setCurrentStore} = useContext(UserDataContext)
   return (
     <Card className="py-4 bg-fuchsia-50 ml-2  mt-3 rounded-xl shadow-xl hover:scale-105 transition-all ease-in">
       <CardHeader className="pb-0 pt-2 px-4 flex-col items-start">
@@ -34,6 +37,10 @@ const StoreCard = ({
           onClick={() => {
             setSelectedComponent("/analytics");
             setOtherStoreAccessKey(currentStoreAccessKey);
+            setCurrentStore({
+              name :storeName,
+              accessKey :currentStoreAccessKey
+            })
           }}
           className="mt-2 font-bold text-gray-50 rounded-lg bg-slate-900 "
         >
