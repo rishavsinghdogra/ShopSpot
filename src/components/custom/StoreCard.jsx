@@ -9,7 +9,7 @@ const StoreCard = ({
   email,
   setSelectedComponent,
   currentStoreAccessKey,
-  setOtherStoreAccessKey,
+setOtherStoreAccessKey,
 }) => {
   const{setCurrentStore} = useContext(UserDataContext)
   return (

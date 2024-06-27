@@ -49,7 +49,7 @@ const Dashboard = () => {
           ) : (
             <SellerAnalytics
               accessKey={accessKey}
-              otherStoreAccessKey={otherStoreAccessKey}
+              otherStoreAccessKey={otherStoreAccessKey}   
             /> //Analytics related to sellers will be avaible to sellers as well so that they don't need to make a buyers account to havee seller experience
           )}
         </div>
