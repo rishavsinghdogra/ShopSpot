@@ -1,4 +1,4 @@
-import { query, collection, where, getDocs } from "firebase/firestore";
+import { query, collection, where, getDocs, deleteDoc, doc } from "firebase/firestore";
 import { firebaseDb } from "../firebase";
 
 function filterSellerData(data, collectionName) {
@@ -98,4 +98,53 @@ export const fetchProductsData = async (accessKey) => {
   const productsRef = collection(firebaseDb, `seller/${accessKey}/products`);
   const result = await getDocs(productsRef);
   return filterProductsData(result?.["_snapshot"]?.docChanges);
+};
+
+const filterCartData = (data) => {
+  return data?.map((buyer) => {
+    const { description, imageUrl, product, productPrice, store } =
+      buyer.doc.data.value.mapValue.fields;
+    const accessKey = buyer.doc.key.path.segments[8]; // accessKey is always at index 6
+    return {
+      description: description.stringValue,
+      imageUrl: imageUrl.stringValue,
+      productPrice: productPrice.integerValue,
+      product: product.stringValue,
+      accessKey: accessKey ? accessKey : "",
+      store: store?.stringValue,
+    };
+  });
+};
+export const fetchCartData = async (accessKey) => {
+  //function that fetch cart data
+  const cartRef = collection(firebaseDb, `buyer/${accessKey}/cart`);
+  const result = await getDocs(cartRef);
+  return filterCartData(result?.["_snapshot"]?.docChanges);
+};
+
+
+export const deleteCartItem = async (accessKey, productId) => {
+  const productRef = doc(firebaseDb, `buyer/${accessKey}/cart/${productId}`);
+  await deleteDoc(productRef);
+};
+
+const filterOrdersData = (data) => {
+  return data?.map((seller) => {
+    const { description, imageUrl, product, productPrice, buyerEmail, buyerName } =
+      seller.doc.data.value.mapValue.fields;
+    const accessKey = seller.doc.key.path.segments[8]; // accessKey is always at index 6
+    return {
+      description: description.stringValue,
+      imageUrl: imageUrl.stringValue,
+      productPrice: productPrice.integerValue,
+      product: product.stringValue,
+      accessKey: accessKey ? accessKey : "",
+    };
+  });
+};
+export const fetchOrdersData = async (accessKey) => {
+  //function that fetch products data
+  const productsRef = collection(firebaseDb, `seller/${accessKey}/orders`);
+  const result = await getDocs(productsRef);
+  return filterOrdersData(result?.["_snapshot"]?.docChanges);
 };

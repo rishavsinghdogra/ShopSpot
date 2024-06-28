@@ -72,6 +72,12 @@ const LogIn = () => {
 
   return (
     <motion.div
+    style={{
+      backgroundImage: "url('/images/backgroundImagee.jpg')",
+      backgroundSize: "cover",
+      backgroundRepeat: "no-repeat",
+      minHeight: "100vh",
+    }}
       className="min-h-lvh flex items-center justify-center bg-gradient-to-r from-[#7882f3] to-[#5555ee]"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
@@ -87,7 +93,7 @@ const LogIn = () => {
         {/* <Card className=""> */}
         <div className="w-full min-h-screen flex items-center justify-center">
           <div className="flex items-center justify-center">
-            <div className="mx-auto grid w-[350px] gap-6">
+            <div className="mx-auto grid w-[350px] bg-blue-500/35 backdrop-blur-2xl shadow-lg rounded-2xl p-4 gap-6">
               <div className="grid gap-2 text-center">
                 <h1 className="text-3xl font-bold">Login</h1>
                 <p className="text-balance text-muted-foreground">

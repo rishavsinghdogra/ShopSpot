@@ -85,6 +85,7 @@ const SellerAnalytics = ({ accessKey, otherStoreAccessKey }) => {
             productPrice={product.productPrice}
             product={product.product}
             accessKey={product.accessKey}
+            currentStore = {currentStore}
           />
         ))}
       </div>

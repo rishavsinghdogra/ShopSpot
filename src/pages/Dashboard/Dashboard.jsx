@@ -4,9 +4,8 @@ import SellerDashboard from "../seller/SellerDashboard";
 import Sidebar from "@/layout/Sidebar";
 import Home from "../common/home/Home";
 import Cart from "../buyer/cart/Cart";
-import Customers from "../seller/customers/Customers";
 import SellerAnalytics from "../seller/analytics/SellerAnalytics";
-import Orders from "../buyer/orders/Orders";
+
 
 const Dashboard = () => {
   const { type, storeName, storeEmail, accessKey } =
@@ -44,12 +43,12 @@ const Dashboard = () => {
               setSelectedComponent={setSelectedComponent}
               setOtherStoreAccessKey={setOtherStoreAccessKey}
             />
-          ) : selectedComponent === "/my-customers" ? (
-            <Customers />
+          ) : selectedComponent === "/cart" ? (
+            <Cart accessKey={otherStoreAccessKey} />
           ) : (
             <SellerAnalytics
               accessKey={accessKey}
-              otherStoreAccessKey={otherStoreAccessKey}   
+              otherStoreAccessKey={otherStoreAccessKey}
             /> //Analytics related to sellers will be avaible to sellers as well so that they don't need to make a buyers account to havee seller experience
           )}
         </div>
@@ -74,8 +73,6 @@ const Dashboard = () => {
             />
           ) : selectedComponent === "/cart" ? (
             <Cart />
-          ) : selectedComponent === "/orders" ? (
-            <Orders />
           ) : (
             <SellerAnalytics
               accessKey={accessKey}

@@ -25,14 +25,15 @@ const Sidebar = ({ userType, selectedComponent, setSelectedComponent }) => {
   const customerMenuItems = [
     { href: "/home", icon: Home, label: "Products" },
     { href: "/cart", icon: ShoppingCart, label: "Cart" },
-    { href: "/orders", icon: Package, label: "Orders" },
+    // { href: "/orders", icon: Package, label: "Orders" },
     { href: "/analytics", icon: LineChart, label: "Analytics" },
   ];
 
   const sellerMenuItems = [
     { href: "/dashboard", icon: LayoutDashboard, label: "Dashboard" },
     { href: "/home", icon: Home, label: "Products" },
-    { href: "/my-customers", icon: Users2, label: "Customers" },
+    { href: "/cart", icon: ShoppingCart, label: "Cart" },
+    // { href: "/orders", icon: Package, label: "Orders" },
     { href: "/analytics", icon: LineChart, label: "Analytics" },
   ];
 
@@ -40,8 +41,8 @@ const Sidebar = ({ userType, selectedComponent, setSelectedComponent }) => {
     userType === "buyer" ? [...customerMenuItems] : [...sellerMenuItems];
 
   return (
-    <aside className="fixed inset-y-0 left-0 z-10 hidden w-14 flex-col border-r bg-background sm:flex bg-white">
-      <nav className="flex flex-col items-center gap-4 px-2 sm:py-4">
+    <aside className=" sticky top-0 sm:fixed sm:inset-y-0 sm:left-0 z-10  sm:w-14 sm:flex-col border-r bg-background sm:flex bg-white">
+      <nav className="flex sm:flex-col justify-evenly mt-3 sm:mt-0 sm:items-center gap-4 px-2 sm:py-4">
         {menuItems.map((item, index) => {
           return (
             <button

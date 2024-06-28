@@ -30,7 +30,7 @@ setOtherStoreAccessKey,
         <Image
           alt="Card background"
           className="object-cover rounded-xl ml-9"
-          src="public/images/shop.png"
+          src="./images/shop.png"
           width={100}
         />
         <Button

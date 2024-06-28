@@ -113,6 +113,12 @@ const SignUP = () => {
 
   return (
     <motion.div
+    style={{
+      backgroundImage: "url('/images/backgroundImagee.jpg')",
+      backgroundSize: "cover",
+      backgroundRepeat: "no-repeat",
+      minHeight: "100vh",
+    }}
       className="min-h-screen flex items-center justify-center bg-gradient-to-r from-[#7882f3] to-[#5555ee]"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
@@ -133,7 +139,7 @@ const SignUP = () => {
         exit={{ scale: 0.8, opacity: 0 }}
         transition={{ duration: 0.5 }}
       >
-        <Card className="mx-auto mt-10 max-w-sm bg-white shadow-md rounded-lg">
+        <Card className="mx-auto mt-10 max-w-sm  bg-blue-500/35 text-white backdrop-blur-2xl shadow-lg rounded-2xl border-none">
           <CardHeader>
             <div className="flex justify-between">
               <CardTitle className="text-xl">Sign Up</CardTitle>
@@ -152,7 +158,7 @@ const SignUP = () => {
               </Tooltip>
             </div>
 
-            <CardDescription>
+            <CardDescription className ="text-white">
               Enter your information to create an account
             </CardDescription>
           </CardHeader>

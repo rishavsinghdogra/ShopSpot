@@ -13,7 +13,6 @@ import {
   InstagramIcon,
   TwitterIcon,
   FacebookIcon,
-  MountainIcon,
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
@@ -34,14 +33,15 @@ const HomePage = () => {
   return (
     <div
       style={{
-        backgroundImage: "url('/images/homepageBackgroung.jpg')",
-        backgroundSize: "contain",
+        backgroundImage: "url('/images/backgroundImagee.jpg')",
+        backgroundSize: "cover",
+        backgroundRepeat: "no-repeat",
         minHeight: "100vh",
       }}
       className="min-h-screen bg-gradient-to-b from-primary to-primary-foreground"
     >
       <motion.header
-        className="flex items-center justify-between p-4 border-b bg-white"
+        className="flex items-center justify-between p-4 border-b bg-white/85 sticky top-0 backdrop-blur-xl"
         initial="hidden"
         animate="visible"
         variants={fadeIn}
@@ -51,13 +51,10 @@ const HomePage = () => {
           <span className="text-2xl font-bold">ShopSpot</span>
         </div>
         <nav className="flex items-center space-x-4">
-          <a href="#" className="text-lg">
-            How to use
-          </a>
-          <a href="#" className="text-lg">
+          <a href="#" onClick={() => navigate("/login")} className="text-lg">
             Log in
           </a>
-          <Button variant="outline">Sign up</Button>
+          <Button onClick={() => navigate("/sign-up")} variant="outline">Sign up</Button>
         </nav>
       </motion.header>
       <main className="flex flex-col items-center justify-center p-8 space-y-8">
