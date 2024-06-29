@@ -1,6 +1,4 @@
-// Import necessary modules
 import { motion } from "framer-motion";
-import HomeNavbar from "./Navbar";
 import { Button } from "@/components/ui/button";
 import {
   StoreIcon,
@@ -15,9 +13,16 @@ import {
   FacebookIcon,
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { useRef } from "react";
 
 const HomePage = () => {
   const navigate = useNavigate();
+
+  const whyChooseRef = useRef(null);
+
+  const scrollToSection = () => {
+    whyChooseRef.current.scrollIntoView({ behavior: "smooth" });
+  };
 
   // Define animation variants
   const fadeIn = {
@@ -54,7 +59,9 @@ const HomePage = () => {
           <a href="#" onClick={() => navigate("/login")} className="text-lg">
             Log in
           </a>
-          <Button onClick={() => navigate("/sign-up")} variant="outline">Sign up</Button>
+          <Button onClick={() => navigate("/sign-up")} variant="outline">
+            Sign up
+          </Button>
         </nav>
       </motion.header>
       <main className="flex flex-col items-center justify-center p-8 space-y-8">
@@ -77,7 +84,12 @@ const HomePage = () => {
               >
                 Try it now
               </Button>
-              <Button variant="outline" className="w-full md:w-auto">
+              <Button
+                ref={whyChooseRef}
+                onClick={scrollToSection}
+                variant="outline"
+                className="w-full md:w-auto"
+              >
                 Learn more
               </Button>
             </div>
