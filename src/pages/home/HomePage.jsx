@@ -46,13 +46,13 @@ const HomePage = () => {
       className="min-h-screen bg-gradient-to-b from-primary to-primary-foreground"
     >
       <motion.header
-        className="flex items-center justify-between p-4 border-b bg-white/85 sticky top-0 backdrop-blur-xl"
+        className="flex flex-wrap sm:flex-nowrap justify-center items-center sm:justify-between p-4 border-b bg-white/85 sticky top-0 backdrop-blur-xl"
         initial="hidden"
         animate="visible"
         variants={fadeIn}
       >
         <div className="flex items-center space-x-4">
-          <StoreIcon className="w-8 h-8 animate-bounce" />
+          <StoreIcon className=" h-6 w-6 sm:w-8 sm:h-8 animate-bounce" />
           <span className="text-2xl font-bold">ShopSpot</span>
         </div>
         <nav className="flex items-center space-x-4">
@@ -64,9 +64,9 @@ const HomePage = () => {
           </Button>
         </nav>
       </motion.header>
-      <main className="flex flex-col items-center justify-center p-8 space-y-8">
+      <main className="flex flex-col  items-center justify-center p-8 space-y-8">
         <motion.div
-          className="flex items-center space-x-8"
+          className="flex flex-col sm:flex-row  items-center  space-x-8"
           initial="hidden"
           animate="visible"
           variants={slideUp}
@@ -96,8 +96,8 @@ const HomePage = () => {
           </div>
           <motion.img
             src="./images/homepageCircle.png"
-            alt="Person with flowers"
-            className="w-[500px] h-64 rounded-full"
+            alt="A shopping cart"
+            className=" w-[200px] sm:w-[500px] h-32 sm:h-64 rounded-full"
             initial={{ scale: 0.5, opacity: 0 }}
             animate={{ scale: 1, opacity: 1, transition: { duration: 0.8 } }}
           />

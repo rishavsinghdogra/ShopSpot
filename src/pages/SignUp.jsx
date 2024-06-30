@@ -128,6 +128,7 @@ const SignUP = () => {
       <motion.img
         src="/images/signUpIllustration.png"
         alt=""
+        className=" hidden lg:block"
         initial={{ x: 0, opacity: 0 }}
         animate={{ x: -100, opacity: 1 }}
         exit={{ x: -200, opacity: 0 }}

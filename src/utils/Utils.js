@@ -139,6 +139,8 @@ const filterOrdersData = (data) => {
       productPrice: productPrice.integerValue,
       product: product.stringValue,
       accessKey: accessKey ? accessKey : "",
+      buyerEmail : buyerEmail.stringValue,
+      buyerName : buyerName.stringValue,
     };
   });
 };

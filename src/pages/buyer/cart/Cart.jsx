@@ -39,7 +39,7 @@ const Cart = ({ accessKey }) => {
 
   if (!cartData[0]) {
     return (
-      <div className=" h-screen  text-6xl font-extrabold text-white flex flex-col items-center justify-center">
+      <div className=" h-screen p-4 sm:ml-[50px]  text-6xl font-extrabold text-white flex flex-col items-center justify-center">
         <h1>Oops! Your cart is empty</h1>
         <img src="./images/emptyCart.png" alt="Your Cart is empty" />
       </div>
@@ -56,7 +56,7 @@ const Cart = ({ accessKey }) => {
               Review and manage the items in your cart.
             </p>
           </div>
-          <div className="text-2xl font-bold ml-auto text-slate-50">
+          <div className="text-2xl font-bold flex mx-auto sm:mx-0 sm:justify-end sm:ml-auto text-slate-50">
             Total: ₹{total?.toFixed(2)}
           </div>
         </div>
@@ -87,7 +87,7 @@ const Cart = ({ accessKey }) => {
                 </div>
               </div>
               <Button
-                className="relative top-7 bg-gradient-to-r from-purple-500 to-indigo-500 text-white py-2 px-4 rounded-md hover:bg-gradient-to-r hover:from-indigo-600 hover:to-purple-600 transition duration-300"
+                className="relative mb-4 top-7 bg-gradient-to-r from-purple-500 to-indigo-500 text-white py-2 px-4 rounded-md hover:bg-gradient-to-r hover:from-indigo-600 hover:to-purple-600 transition duration-300"
                 endContent={
                   <ShoppingBag className=" group-hover:animate-bounce" />
                 }

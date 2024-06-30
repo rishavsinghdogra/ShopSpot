@@ -70,7 +70,7 @@ const ProductCard = ({
         <Card
           isFooterBlurred
           isPressable
-          className="max-w-[150px] max-h-[150px] bg-slate-50 rounded-xl "
+          className="max-w-[150px]  max-h-[150px] bg-slate-50 rounded-xl "
         >
           <div className="">
             <h5 className="text-md font-semibold text-center  truncate px-1">
@@ -84,7 +84,7 @@ const ProductCard = ({
             src={imageUrl}
           />
 
-          <CardFooter className="flex space-x-2 bg-blue-300/70 border border-white/20 rounded-xl py-1 shadow-sm absolute bottom-1 left-1 right-1 z-10 ">
+          <CardFooter className="flex flex-wrap sm:flex-nowrap items-center justify-center space-y-2 space-x-2 bg-blue-300/70 border border-white/20 rounded-xl py-1 shadow-sm absolute bottom-1 left-[1px] right-1 z-10 ">
             <Badge variant="destructive">{`₹${productPrice}`}</Badge>
             <Button
               className="text-xs px-2 text-white bg-black/70 rounded-lg"
@@ -128,7 +128,7 @@ const ProductCard = ({
           <DialogDescription className="mx-auto col-span-3 mt-3 ml-2 flex flex-col">
             {description}
             <Badge
-              className="max-w-[20%] min-h-[20%] mt-3 text-5xl rounded-xl "
+              className="max-w-[20%] truncate min-h-[20%] mt-3 text-5xl rounded-xl "
               variant="destructive"
             >{`₹${productPrice?.toLocaleString() ?? "N/A"}`}</Badge>
           </DialogDescription>

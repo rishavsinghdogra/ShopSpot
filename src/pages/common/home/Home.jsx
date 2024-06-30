@@ -74,7 +74,7 @@ const Home = ({ setSelectedComponent, setOtherStoreAccessKey }) => {
   };
 
   return (
-    <div className="home flex flex-col items-center ml-[50px] px-4 py-8">
+    <div className="home flex flex-col items-center justify-center sm:ml-[50px] px-4 py-8">
       {/* Banner Section */}
       <div className="banner flex flex-col items-center py-12 px-8 bg-gray-100 bg-opacity-20 backdrop-filter backdrop-blur-lg rounded-lg text-white w-full relative z-10">
         <h1 className="text-4xl font-bold mb-4">Welcome to ShopSpot</h1>
@@ -83,10 +83,10 @@ const Home = ({ setSelectedComponent, setOtherStoreAccessKey }) => {
           favorite products. Our platform offers a seamless shopping experience
           with top-rated stores at your fingertips.
         </p>
-        <div className="flex flex-row space-x-2 ">
+        <div className="flex flex-row flex-wrap space-x-2 space-y-2 justify-center items-center ">
           <button
             onClick={handleGetStartedClick}
-            className="px-8 py-3 bg-white text-gray-800 rounded-lg hover:bg-gray-200 transition-colors duration-300 mr-2"
+            className="px-8 py-3 w-[200px] bg-white text-gray-800 rounded-lg hover:bg-gray-200 transition-colors duration-300 relative left-1 top-1 mb-1"
           >
             See every shop
           </button>
@@ -162,7 +162,7 @@ const Home = ({ setSelectedComponent, setOtherStoreAccessKey }) => {
 
         {/* Pagination controls */}
         {!loading && totalPages > 1 && (
-          <div className="flex justify-center my-4">
+          <div className="flex justify-center flex-wrap my-4">
             <button
               onClick={() => handlePageChange(page - 1)}
               disabled={page === 1}

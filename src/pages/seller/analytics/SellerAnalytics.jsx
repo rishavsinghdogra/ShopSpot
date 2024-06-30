@@ -7,6 +7,7 @@ import { useContext } from "react";
 import { UserDataContext } from "@/contexts/UserDataContext";
 import { CardFooter } from "@/components/ui/card";
 
+
 const SellerAnalytics = ({ accessKey, otherStoreAccessKey }) => {
   const [loading, setLoading] = useState(false);
   const [productsData, setProductsData] = useState([]);
@@ -17,6 +18,8 @@ const SellerAnalytics = ({ accessKey, otherStoreAccessKey }) => {
   const { currentStore } = useContext(UserDataContext);
 
   console.log(currentStore);
+
+  
 
   useEffect(() => {
     const fetchStores = async () => {
@@ -55,28 +58,28 @@ const SellerAnalytics = ({ accessKey, otherStoreAccessKey }) => {
   return (
     <div className="flex flex-col items-center justify-center w-full">
       {/* Banners */}
-      <div className="banner flex flex-col items-center py-12 px-8 bg-gray-100 bg-opacity-20 backdrop-filter backdrop-blur-lg rounded-lg text-white w-[70%] mt-8 relative z-10">
+      <div className="banner flex flex-col items-center justify-center sm:ml-[50px] py-12 px-8 bg-gray-100 bg-opacity-20 backdrop-filter backdrop-blur-lg rounded-lg text-white w-[70%] mt-8 relative z-10">
         <h1 className="text-4xl font-bold mb-4">
           Welcome to Analytics Section
         </h1>
-        <p className="text-lg text-center mb-6">
+        <p className="text-lg text-center mb-20 sm:mb-8">
           Get useful insights with the help of interactive graphs, Which
           enhances your decision making power!
         </p>
         <div className="">
-          <CardFooter className="flex justify-center font-bold  mx-auto mb-3 w-[20%] h-[20%] space-x-2 bg-blue-300/70 border border-white/20 rounded-xl py-1 shadow-sm absolute bottom-1 left-1 right-1 z-10 ">
+          <CardFooter className="sm:flex  justify-center font-bold sm:w-[40%]   mx-auto mb-3  h-[20%] space-x-2 bg-blue-300/70 border border-white/20 rounded-xl py-1 shadow-sm absolute bottom-1 left-1 right-1 ">
             <img
               src="./images/Store.png"
               alt=""
-              className="h-8 "
+              className="h-8 hidden sm:block "
             />
-            <h1 className="h-8 relative top-1 ">{currentStore?.name}</h1>
+            <h1 className="h-8 relative  text-nowrap top-1 ">{currentStore?.name}</h1>
           </CardFooter>
         </div>
       </div>
 
       {/* Product Listing */}
-      <div className="ml-[70px] grid grid-cols-1 sm:grid-cols-2 md:grid-cols-7 gap-4 py-8">
+      <div className="  sm:ml-[70px] grid grid-cols-1 sm:grid-cols-2 md:grid-cols-7 gap-4 py-8">
         {currentProducts.map((product, index) => (
           <ProductCard
             key={index}
@@ -92,9 +95,10 @@ const SellerAnalytics = ({ accessKey, otherStoreAccessKey }) => {
 
       {/* Product Price Chart */}
       <ProductPriceChart data={productsData} />
+      
 
       {/* Pagination Controls */}
-      <div className="flex justify-center my-4">
+      <div className="flex justify-center flex-wrap my-4">
         <button
           onClick={() => handlePageChange(currentPage - 1)}
           disabled={currentPage === 1}

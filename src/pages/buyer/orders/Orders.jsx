@@ -27,18 +27,18 @@ const Orders = () => {
   const averageOrderValue = totalRevenue / totalOrders;
 
   return (
-    <div className="flex flex-col relative left-6 w-full bg-muted/40 p-4">
-      <main className="flex-1 grid gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 p-16">
-        <div className="grid auto-rows-max gap-4 md:gap-8 lg:col-span-2">
-          <Card>
+    <div className="flex flex-col  w-full sm:w-[70%] mx-auto bg-muted/40 p-4">
+      <main className=" grid gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 ">
+        <div className=" gap-4 md:gap-8 lg:col-span-2">
+          <Card className="grid  gap-4 md:gap-8">
             <CardHeader className="pb-3">
               <CardTitle>Your Orders</CardTitle>
-              <CardDescription className="max-w-lg text-balance leading-relaxed">
+              <CardDescription className="max-w-lg  leading-relaxed">
                 Introducing Our Dynamic Orders Dashboard for Seamless Management and Insightful Analysis.
               </CardDescription>
             </CardHeader>
-            <CardContent className="h-[400px] overflow-y-auto">
-              <Table className="">
+            <CardContent className="h-[400px]  overflow-y-auto">
+              <Table className=" overflow-x-auto overflow-y-auto">
                 <TableHeader>
                   <TableRow>
                     <TableHead className="cursor-pointer" >
@@ -48,16 +48,20 @@ const Orders = () => {
                       Price 
                     </TableHead>
                     <TableHead className="cursor-pointer" >
-                      Description 
+                      Buyer 
+                    </TableHead>
+                    <TableHead className="cursor-pointer" >
+                      Buyer Email 
                     </TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
                   {ordersData.map((order) => (
-                    <TableRow key={order.accessKey}>
-                      <TableCell>{order.product}</TableCell>
-                      <TableCell>${parseFloat(order.productPrice).toFixed(2)}</TableCell>
-                      <TableCell>{order.description}</TableCell>
+                    <TableRow key={order?.accessKey}>
+                      <TableCell>{order?.product}</TableCell>
+                      <TableCell>${parseFloat(order?.productPrice).toFixed(2)}</TableCell>
+                      <TableCell>{order?.buyerName}</TableCell>
+                      <TableCell>{order?.buyerEmail}</TableCell>
                     </TableRow>
                   ))}
                 </TableBody>
@@ -67,7 +71,7 @@ const Orders = () => {
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Button variant="outline" size="sm" className="h-7 gap-1 text-sm">
-                    <FilterIcon className="h-3.5 w-3.5" />
+                    <FilterIcon className="h-3.5 max-w-3.5" />
                     <span>Filter</span>
                   </Button>
                 </DropdownMenuTrigger>
@@ -102,14 +106,14 @@ const Orders = () => {
               </DropdownMenu>
               <div className="flex items-center gap-2">
                 <Button size="sm" variant="outline" className="h-7 gap-1 text-sm">
-                  <DownloadIcon className="h-3.5 w-3.5" />
+                  <DownloadIcon className="h-3.5 max-w-3.5" />
                   <span>Export</span>
                 </Button>
               </div>
             </CardFooter>
           </Card>
         </div>
-        <div className="grid min-w-72 gap-4 md:gap-8">
+        <div className="grid  gap-4 md:gap-8">
           <Card>
             <CardHeader className="pb-3">
               <CardTitle>Order Summary</CardTitle>

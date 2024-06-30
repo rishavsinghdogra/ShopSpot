@@ -41,8 +41,8 @@ const Sidebar = ({ userType, selectedComponent, setSelectedComponent }) => {
     userType === "buyer" ? [...customerMenuItems] : [...sellerMenuItems];
 
   return (
-    <aside className=" sticky top-0 sm:fixed sm:inset-y-0 sm:left-0 z-10  sm:w-14 sm:flex-col border-r bg-background sm:flex bg-white">
-      <nav className="flex sm:flex-col justify-evenly mt-3 sm:mt-0 sm:items-center gap-4 px-2 sm:py-4">
+    <aside className=" sticky  sm:fixed sm:inset-y-0 sm:left-0 z-10  sm:w-14 sm:flex-col border-r bg-background sm:flex bg-white">
+      <nav className="flex sm:flex-col justify-evenly pt-3 mt-0 sm:items-center gap-4 px-2 sm:py-4">
         {menuItems.map((item, index) => {
           return (
             <button

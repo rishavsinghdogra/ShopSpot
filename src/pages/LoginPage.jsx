@@ -91,9 +91,9 @@ const LogIn = () => {
         transition={{ duration: 0.5 }}
       >
         {/* <Card className=""> */}
-        <div className="w-full min-h-screen flex items-center justify-center">
+        <div className="max-w-full min-h-screen flex items-center justify-center">
           <div className="flex items-center justify-center">
-            <div className="mx-auto grid w-[350px] bg-blue-500/35 backdrop-blur-2xl shadow-lg rounded-2xl p-4 gap-6">
+            <div className="mx-auto grid max-w-[350px] bg-blue-500/35 backdrop-blur-2xl shadow-lg rounded-2xl p-4 gap-6">
               <div className="grid gap-2 text-center">
                 <h1 className="text-3xl font-bold">Login</h1>
                 <p className="text-balance text-muted-foreground">
@@ -157,7 +157,7 @@ const LogIn = () => {
               alt="Image"
               width="120"
               height="680"
-              className="h-[70%]  w-[90%] object-contain dark:brightness-[0.2] dark:grayscale"
+              className="h-[70%]  w-[90%] hidden lg:block object-contain dark:brightness-[0.2] dark:grayscale"
               initial={{ x: 0, opacity: 0 }}
               animate={{ x: 100, opacity: 1 }}
               exit={{ x: -100, opacity: 0 }}

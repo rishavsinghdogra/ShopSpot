@@ -1,12 +1,22 @@
 import Chart from "react-apexcharts";
+import { useMediaQuery } from "react-responsive";
+
 
 const ProductPriceInShop = ({ chartData, chartShopNames}) => {
+
+  const isMobile = useMediaQuery({ query: '(max-width: 500px)' })
+  const isTablet = useMediaQuery({ query: '(max-width: 1000px)' })
+  const isLaptop = useMediaQuery({ query: '(max-width: 1500px)' })
+
+  
 
   console.log(chartData)
   console.log(chartShopNames)
 
+  
+
   return (
-    <div className=" flex justify-center items-center  bg-white backdrop-blur-3xl  border-b-4 shadow-2xl border-t-4 border-gray-100   rounded-lg">
+    <div className="w-full mx-auto  flex justify-center items-center  bg-white backdrop-blur-3xl  border-b-4 shadow-2xl border-t-4 border-gray-100   rounded-lg">
       <Chart
         options={{
           plotOptions: {
@@ -34,7 +44,7 @@ const ProductPriceInShop = ({ chartData, chartShopNames}) => {
           },
         }}
         series={chartData}
-        width={1000}
+        width={isMobile ? 300: isTablet ? 450 : isLaptop ? 900 : 1300}
         height={400}
         type="area"
       />
