@@ -53,7 +53,7 @@ const HomePage = () => {
       >
         <div className="flex items-center space-x-4">
           <StoreIcon className=" h-6 w-6 sm:w-8 sm:h-8 animate-bounce" />
-          <span className="text-2xl font-bold">ShopSpot</span>
+          <span className="text-2xl mb-3 sm:mb-0 font-bold">ShopSpot</span>
         </div>
         <nav className="flex items-center space-x-4">
           <a href="#" onClick={() => navigate("/login")} className="text-lg">
