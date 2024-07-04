@@ -140,7 +140,7 @@ const SignUP = () => {
         exit={{ scale: 0.8, opacity: 0 }}
         transition={{ duration: 0.5 }}
       >
-        <Card className="mx-auto mt-10 max-w-sm  bg-blue-500/35 text-white backdrop-blur-2xl shadow-lg rounded-2xl border-none">
+        <Card className="mx-auto mt-10 max-w-sm  bg-blue-500/35 backdrop-blur-2xl shadow-lg rounded-2xl border-none">
           <CardHeader>
             <div className="flex justify-between">
               <CardTitle className="text-xl">Sign Up</CardTitle>
